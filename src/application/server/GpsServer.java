@@ -15,7 +15,7 @@ import application.GpsLocation;
  * Socket server that receives GPS locations as `latitude + ", " + longitude`.
  *
  */
-public class GpsServer {
+public class GpsServer extends Thread {
 
 	private int port = 1605; // TODO configure from settings
 
@@ -31,6 +31,7 @@ public class GpsServer {
 		this.port = port;
 	}
 
+	@Override
 	public void run() {
 		System.out.println("Server start");
 
@@ -50,7 +51,7 @@ public class GpsServer {
 
 				loc = new GpsLocation(inputLine);
 
-				System.out.println(loc);
+				//System.out.println(loc);
 
 				TimeUnit.SECONDS.sleep(1);
 
@@ -69,11 +70,18 @@ public class GpsServer {
 
 	/**
 	 * Available for server testing. Not application main.
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		GpsServer gpsServer = new GpsServer();
-		gpsServer.run();
+		gpsServer.start();
+
+		System.out.println("asdfasdf");
+		while (true) {
+			System.out.println(gpsServer.loc);
+			TimeUnit.SECONDS.sleep(1);
+		}
 	}
 
 }

@@ -34,7 +34,7 @@ public class TestClient {
 			while ((fromServer = in.readLine()) != null) {
 				// System.out.println("Server: " + fromServer);
 
-				GpsLocation gpsLocation = new GpsLocation(39.781361, 84.067882);
+				GpsLocation gpsLocation = new GpsLocation(39.781361 + Math.random(), 84.067882);
 
 				out.println(gpsLocation.toString());
 			}
