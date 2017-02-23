@@ -19,7 +19,15 @@ public class GpsServer extends Thread {
 
 	private int port = 1605; // TODO configure from settings
 
-	GpsLocation loc;
+	/**
+	 * Written to from server thread and read from other threads. TODO: Look
+	 * into if this needs thread safety measures.
+	 */
+	private GpsLocation loc;
+
+	public GpsLocation getGpsLocation() {
+		return loc;
+	}
 
 	/**
 	 * Use default port value.
@@ -51,7 +59,7 @@ public class GpsServer extends Thread {
 
 				loc = new GpsLocation(inputLine);
 
-				//System.out.println(loc);
+				// System.out.println(loc);
 
 				TimeUnit.SECONDS.sleep(1);
 
@@ -70,7 +78,8 @@ public class GpsServer extends Thread {
 
 	/**
 	 * Available for server testing. Not application main.
-	 * @throws InterruptedException 
+	 * 
+	 * @throws InterruptedException
 	 */
 	public static void main(String[] args) throws InterruptedException {
 
