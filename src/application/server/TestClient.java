@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 
 import application.GpsLocation;
 
@@ -16,7 +17,7 @@ import application.GpsLocation;
  */
 public class TestClient {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws InterruptedException {
 		// 39.781361, -84.067882
 
 		String hostName = "localhost";
@@ -37,6 +38,8 @@ public class TestClient {
 				GpsLocation gpsLocation = new GpsLocation(39.781361 + Math.random(), 84.067882);
 
 				out.println(gpsLocation.toString());
+
+				TimeUnit.SECONDS.sleep(2);
 			}
 
 		} catch (UnknownHostException e) {

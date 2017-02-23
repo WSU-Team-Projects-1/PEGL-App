@@ -13,6 +13,9 @@ import application.GpsLocation;
 /**
  * 
  * Socket server that receives GPS locations as `latitude + ", " + longitude`.
+ * 
+ * The server accepts only one active client. Multiple clients could be
+ * supported by mapping connected IPs to GpsLocations.
  *
  */
 public class GpsServer extends Thread {
@@ -25,6 +28,11 @@ public class GpsServer extends Thread {
 	 */
 	private GpsLocation loc;
 
+	/**
+	 * Returns the most recent GpsLocation received by the server.
+	 * 
+	 * @return GpsLocation
+	 */
 	public GpsLocation getGpsLocation() {
 		return loc;
 	}
@@ -50,7 +58,7 @@ public class GpsServer extends Thread {
 
 			String inputLine;
 
-			// respond to client
+			// respond to client to let it know communication is ready
 			out.println();
 
 			// While connection is alive
@@ -59,18 +67,11 @@ public class GpsServer extends Thread {
 
 				loc = new GpsLocation(inputLine);
 
-				// System.out.println(loc);
-
-				TimeUnit.SECONDS.sleep(1);
-
 				out.println();
 
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -86,7 +87,7 @@ public class GpsServer extends Thread {
 		GpsServer gpsServer = new GpsServer();
 		gpsServer.start();
 
-		System.out.println("asdfasdf");
+		System.out.println("server testing:");
 		while (true) {
 			System.out.println(gpsServer.loc);
 			TimeUnit.SECONDS.sleep(1);
