@@ -18,12 +18,17 @@ public class GpsLog {
 		if (loc == null) {
 			throw new RuntimeException("location cannot be null");
 		}
-		if (annotation == null){
+		if (annotation == null) {
 			annotation = "";
 		}
-		
+
 		this.loc = loc;
 		this.annotation = annotation;
+	}
+
+	public GpsLog(double lon, double lat, String ann) {
+		loc = new GpsLocation(lon, lat);
+		annotation = ann;
 	}
 
 	public String getAnotation() {

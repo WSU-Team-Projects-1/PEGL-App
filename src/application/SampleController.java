@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,7 +21,6 @@ import javafx.scene.layout.Pane;
 
 public class SampleController implements Initializable {
 
-	
 	private List<GpsLog> logs = new ArrayList<>(50);
 
 	public void saveLogsToFile() {
@@ -42,10 +44,29 @@ public class SampleController implements Initializable {
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
-		//Test values
-		logs.add(new GpsLog(new GpsLocation(1,1), "test"));
-		logs.add(new GpsLog(new GpsLocation(2,2), "ed"));
-		
+		// Test values
+		logs.add(new GpsLog(new GpsLocation(1, 1), "test"));
+		logs.add(new GpsLog(new GpsLocation(2, 2), "ed"));
+
+		//
+		MainModel model = MainModel.getInstance();
+
+		model.locationProperty().addListener(new ChangeListener<GpsLocation>() {
+
+			@Override
+			public void changed(ObservableValue<? extends GpsLocation> observable, GpsLocation oldValue,
+					GpsLocation newValue) {
+
+				if (newValue != null) {
+					Platform.runLater(() -> {
+						gpsLocationLabel.setText(newValue.toString());
+					});
+
+				}
+			}
+
+		});
+
 	}
 
 	@FXML

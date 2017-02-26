@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
 import application.GpsLocation;
+import application.MainModel;
 
 /**
  * 
@@ -22,28 +23,17 @@ public class GpsServer extends Thread {
 
 	private int port = 1605; // TODO configure from settings
 
-	/**
-	 * Written to from server thread and read from other threads. TODO: Look
-	 * into if this needs thread safety measures.
-	 */
-	private GpsLocation loc;
-
-	/**
-	 * Returns the most recent GpsLocation received by the server.
-	 * 
-	 * @return GpsLocation
-	 */
-	public GpsLocation getGpsLocation() {
-		return loc;
-	}
+	private MainModel model;
 
 	/**
 	 * Use default port value.
 	 */
 	public GpsServer() {
+		model = MainModel.getInstance();
 	}
 
 	public GpsServer(int port) {
+		this();
 		this.port = port;
 	}
 
@@ -65,7 +55,7 @@ public class GpsServer extends Thread {
 			while ((inputLine = in.readLine()) != null) {
 				// System.err.println(inputLine);
 
-				loc = new GpsLocation(inputLine);
+				model.setLocation(new GpsLocation(inputLine));
 
 				out.println();
 
@@ -89,7 +79,7 @@ public class GpsServer extends Thread {
 
 		System.out.println("server testing:");
 		while (true) {
-			System.out.println(gpsServer.loc);
+			System.out.println(gpsServer.model.getLocation());
 			TimeUnit.SECONDS.sleep(1);
 		}
 	}
