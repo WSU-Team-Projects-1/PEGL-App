@@ -6,10 +6,24 @@ public class GpsLog {
 
 	private String annotation;
 
-	public GpsLog(GpsLocation loc, String anotation) {
+	/**
+	 * Creates a new log. Throws RuntimeException if location is null.
+	 * 
+	 * @param loc
+	 *            Cannot be null.
+	 * @param annotation
+	 */
+	public GpsLog(GpsLocation loc, String annotation) {
 		super();
+		if (loc == null) {
+			throw new RuntimeException("location cannot be null");
+		}
+		if (annotation == null){
+			annotation = "";
+		}
+		
 		this.loc = loc;
-		this.annotation = anotation;
+		this.annotation = annotation;
 	}
 
 	public String getAnotation() {
@@ -25,8 +39,8 @@ public class GpsLog {
 	}
 
 	/**
-	 * Representation of a log suitable for a csv file.
-	 * <longitude, latitude, annotation>
+	 * Representation of a log suitable for a csv file. <longitude, latitude,
+	 * annotation>
 	 */
 	@Override
 	public String toString() {
