@@ -6,8 +6,8 @@ package application;
  *
  */
 public class GpsLocation {
-	public double latitude;
-	public double longitude;
+	public final double latitude;
+	public final double longitude;
 
 	public GpsLocation(double latitude, double longitude) {
 		super();

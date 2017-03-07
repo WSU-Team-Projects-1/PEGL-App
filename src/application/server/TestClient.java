@@ -15,9 +15,10 @@ import application.GpsLocation;
  * Substitute for PEGL Proxy during testing.
  *
  */
-public class TestClient {
+public class TestClient extends Thread {
 
-	public static void main(String[] args) throws InterruptedException {
+	@Override
+	public void run() {
 		// 39.781361, -84.067882
 
 		String hostName = "localhost";
@@ -39,7 +40,12 @@ public class TestClient {
 
 				out.println(gpsLocation.toString());
 
-				TimeUnit.SECONDS.sleep(2);
+				try {
+					TimeUnit.SECONDS.sleep(2);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 		} catch (UnknownHostException e) {
@@ -49,5 +55,9 @@ public class TestClient {
 			System.err.println("Couldn't get I/O for the connection to " + hostName);
 			System.exit(1);
 		}
+	}
+
+	public static void main(String[] args) {
+		new TestClient().start();
 	}
 }
