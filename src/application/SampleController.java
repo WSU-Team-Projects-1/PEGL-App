@@ -41,7 +41,6 @@ public class SampleController implements Initializable {
 	}
 
 	// This method is called by the FXMLLoader when initialization is complete
-	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
 		// Test values
