@@ -38,6 +38,7 @@ public class Main extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 			Platform.exit();
+			System.exit(0);
 		}
 
 		if (runningServer) {
