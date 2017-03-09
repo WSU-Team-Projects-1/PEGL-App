@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 
 public class SampleController implements Initializable {
@@ -98,7 +98,7 @@ public class SampleController implements Initializable {
 	private Button createGPSLogButton;
 
 	@FXML
-	private TextField annotationTextField;
+	private TextArea annotationTextField;
 
 	@FXML
 	private Button setSearchBoundariesButton;
