@@ -27,8 +27,7 @@ public class GpsLog {
 	}
 
 	public GpsLog(double lon, double lat, String ann) {
-		loc = new GpsLocation(lon, lat);
-		annotation = ann;
+		this(new GpsLocation(lon, lat), ann);
 	}
 
 	public String getAnotation() {
@@ -44,11 +43,13 @@ public class GpsLog {
 	}
 
 	/**
-	 * Representation of a log suitable for a csv file. <longitude, latitude,
-	 * annotation>
+	 * Representation of a log suitable for a csv file.
+	 * 
+	 * <longitude, latitude, annotation> The annotation is altered to exist in
+	 * csv by stripping quotation marks and escaping new lines.
 	 */
 	@Override
 	public String toString() {
-		return loc.toString() + ", \"" + annotation.replaceAll("\"", "") + "\"";
+		return loc.toString() + ", \"" + annotation.replaceAll("\"", "").replaceAll("\n", " \\\\n ") + "\"";
 	}
 }

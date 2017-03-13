@@ -1,5 +1,8 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainModel {
 
 	private static MainModel instance;
@@ -8,11 +11,13 @@ public class MainModel {
 		if (instance == null) {
 			instance = new MainModel();
 		}
+		
 		return instance;
 	}
 
 	private MainModel() {
 		location = new GpsLocationProperty();
+		logs = new ArrayList<>(50);
 	}
 
 	//
@@ -21,12 +26,20 @@ public class MainModel {
 	 * Written to from server thread and read from other threads. TODO: Look
 	 * into if this needs thread safety measures.
 	 */
-	private GpsLocationProperty location;
+	private final GpsLocationProperty location;
 
 	private Boundary bounds;
 
 	private boolean shouldIssueBoundaryWarning = true;
 	private boolean shouldIssueComunicationWarning = true;
+
+	private final List<GpsLog> logs;
+	
+	public List<GpsLog> getLogs() {
+		return logs;
+	}
+
+	
 
 	public boolean shouldIssueBoundaryWarning() {
 		return shouldIssueBoundaryWarning;
