@@ -37,7 +37,7 @@
             </StackPane>
             <StackPane id="gpsLoggingStackPane" fx:id="gpsLoggingStackPane" layoutX="-1.0" layoutY="574.0" prefHeight="242.0" prefWidth="334.0">
                <children>
-                  <Button id="createGPSLogButton" fx:id="createGPSLogButton" alignment="TOP_LEFT" mnemonicParsing="false" text="Create GPS Log" StackPane.alignment="TOP_LEFT">
+                  <Button id="createGPSLogButton" fx:id="createGPSLogButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newLog" text="Create GPS Log" StackPane.alignment="TOP_LEFT">
                      <StackPane.margin>
                         <Insets left="10.0" top="10.0" />
                      </StackPane.margin>

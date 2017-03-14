@@ -20,11 +20,12 @@ public class GpsLocation {
 	 * 
 	 * @param s
 	 */
-	public GpsLocation(String s) {
-		super();
+	public static GpsLocation parse(String s) {
+		
 		String[] split = s.split(",");
-		this.latitude = Double.parseDouble(split[0].trim());
-		this.longitude = Double.parseDouble(split[1].trim());
+		double lat = Double.parseDouble(split[0].trim());
+		double lon = Double.parseDouble(split[1].trim());
+		return new GpsLocation(lat, lon);
 	}
 
 	/**

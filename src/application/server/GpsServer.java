@@ -55,7 +55,7 @@ public class GpsServer extends Thread {
 			while ((inputLine = in.readLine()) != null) {
 				// System.err.println(inputLine);
 
-				model.setLocation(new GpsLocation(inputLine));
+				model.setLocation( GpsLocation.parse(inputLine));
 
 				out.println();
 
