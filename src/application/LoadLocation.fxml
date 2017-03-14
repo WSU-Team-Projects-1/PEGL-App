@@ -5,12 +5,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-
 <Pane id="mainPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label id="instructionLabel" fx:id="instructionLabel" layoutX="63.0" layoutY="60.0" text="Enter the address to load (Street, City, State ZIP):" />
+      <Label id="instructionLabel" fx:id="instructionLabel" layoutX="63.0" layoutY="60.0" text="Enter the area to load (Latitude, Longitude):" />
       <Button id="okButton" fx:id="okButton" layoutX="431.0" layoutY="299.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="OK" />
       <Button id="cancelButton" fx:id="cancelButton" cancelButton="true" defaultButton="true" layoutX="514.0" layoutY="299.0" mnemonicParsing="false" text="Cancel" />
-      <TextField id="inputTextField" fx:id="inputTextField" layoutX="63.0" layoutY="99.0" prefHeight="31.0" prefWidth="433.0" promptText="Enter Address..." />
+      <Label id="latLabel" fx:id="latLabel" layoutX="63.0" layoutY="104.0" prefHeight="21.0" prefWidth="164.0" text="Latitude:" />
+      <Label id="longLabel" fx:id="longLabel" layoutX="63.0" layoutY="150.0" prefHeight="21.0" prefWidth="164.0" text="Longitude:" />
+      <TextField id="latTextField" fx:id="latTextField" layoutX="227.0" layoutY="99.0" prefHeight="31.0" prefWidth="292.0" promptText="Enter Latitude of Area..." />
+      <TextField id="longTextField" fx:id="longTextField" layoutX="227.0" layoutY="145.0" prefHeight="31.0" prefWidth="292.0" promptText="Enter Longitude of Area..." />
    </children>
 </Pane>

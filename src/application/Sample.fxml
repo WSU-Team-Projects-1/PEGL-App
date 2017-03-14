@@ -47,7 +47,7 @@
                         <Insets right="10.0" top="10.0" />
                      </StackPane.margin>
                   </Button>
-                  <TextArea id="annotationTextField" fx:id="annotationTextField1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="135.0" prefWidth="288.0" />
+                  <TextArea id="annotationTextField" fx:id="annotationTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="135.0" prefWidth="288.0" />
                   <Button id="saveLogsToFileButton" fx:id="saveLogsToFileButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onMouseClicked="#saveLogsToFile" prefHeight="31.0" prefWidth="288.0" text="Save Logs to File" StackPane.alignment="BOTTOM_CENTER">
                      <StackPane.margin>
                         <Insets bottom="10.0" />
