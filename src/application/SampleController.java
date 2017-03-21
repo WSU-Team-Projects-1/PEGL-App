@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import javafx.application.Platform;
@@ -24,6 +25,59 @@ import javafx.stage.Stage;
 public class SampleController {
 
 	private MainModel model = MainModel.getInstance();
+	private final String oobWarning = "The UAS is out of the specified boundary";
+
+	/**
+	 * ui updates based on changing gps location
+	 */
+	private ChangeListener<GpsLocation> gpsChangeListener = new ChangeListener<GpsLocation>() {
+		@Override
+		public void changed(ObservableValue<? extends GpsLocation> observable, GpsLocation oldValue,
+				GpsLocation newValue) {
+
+			if (newValue != null) {
+
+				// Update position on gui
+				Platform.runLater(() -> {
+					gpsLocationLabel.setText(newValue.toString());
+				});
+
+				// Check bounds
+				Boundary bounds = model.getBounds();
+				if (bounds != null) {
+					if (model.shouldIssueBoundaryWarning() && !bounds.inBounds(newValue)) {
+
+						// issue boundary warning
+						try {
+							Stage stage = new Stage();
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("WarningMessage.fxml"));
+							Parent root = loader.load();
+							WarningController controller = (WarningController) loader.getController();
+
+							controller.configure(oobWarning);
+
+							Scene scene = new Scene(root);
+
+							scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+							stage.setScene(scene);
+							stage.show();
+
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					} else if (!model.shouldIssueBoundaryWarning() && bounds.inBounds(newValue)) {
+						// Enable warnings after in bounds again
+						model.setShouldIssueBoundaryWarning(true);
+					}
+
+				}
+
+			}
+		}
+
+	};
 
 	@FXML
 	public void newLog() {
@@ -33,6 +87,7 @@ public class SampleController {
 		}
 		GpsLog log = new GpsLog(model.getLocation(), annotation);
 		model.getLogs().add(log);
+
 	}
 
 	@FXML
