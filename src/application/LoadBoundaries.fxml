@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane id="mainPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="mainPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoadBoundariesController">
    <children>
       <Label id="instructionLabel" fx:id="instructionLabel" layoutX="63.0" layoutY="60.0" text="Enter the top left and bottom right boundaries (Latitude, Longitude):" />
       <Button id="okButton" fx:id="okButton" layoutX="431.0" layoutY="299.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="OK" />

@@ -3,14 +3,14 @@ package application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -18,8 +18,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-public class SampleController implements Initializable {
+public class SampleController {
 
 	private MainModel model = MainModel.getInstance();
 
@@ -54,8 +56,8 @@ public class SampleController implements Initializable {
 	/**
 	 * Non generated initialization code
 	 */
-	private void initializeStage2(){
-		
+	private void initializeStage2() {
+
 		model.locationProperty().addListener(new ChangeListener<GpsLocation>() {
 
 			@Override
@@ -87,13 +89,54 @@ public class SampleController implements Initializable {
 			}
 
 		});
-		
-	}
-	
-	// This method is called by the FXMLLoader when initialization is complete
-	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
-		//generated
+		connectToDJIButton.setOnAction((event) -> {
+			try {
+				Parent root1 = (Parent) FXMLLoader.load(getClass().getResource("ProxyPairing.fxml"));
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.setScene(new Scene(root1));
+				stage.showAndWait();
+			} catch (Exception e) {
+				e.printStackTrace();
+				Platform.exit();
+				System.exit(0);
+			}
+		});
+
+		loadSearchAreaButton.setOnAction((event) -> {
+			try {
+				Parent root1 = (Parent) FXMLLoader.load(getClass().getResource("LoadLocation.fxml"));
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.setScene(new Scene(root1));
+				stage.showAndWait();
+			} catch (Exception e) {
+				e.printStackTrace();
+				Platform.exit();
+				System.exit(0);
+			}
+		});
+
+		setSearchBoundariesButton.setOnAction((event) -> {
+			try {
+				Parent root1 = (Parent) FXMLLoader.load(getClass().getResource("LoadBoundaries.fxml"));
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.setScene(new Scene(root1));
+				stage.showAndWait();
+			} catch (Exception e) {
+				e.printStackTrace();
+				Platform.exit();
+				System.exit(0);
+			}
+		});
+	}
+
+	// This method is called by the FXMLLoader when initialization is complete
+	public void initialize() {
+
+		// generated
 		assert defaultPane != null : "fx:id=\"defaultPane\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert toolbarPane != null : "fx:id=\"toolbarPane\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert locationVBox != null : "fx:id=\"locationVBox\" was not injected: check your FXML file 'Sample.fxml'.";
@@ -109,14 +152,14 @@ public class SampleController implements Initializable {
 		assert annotationTextField != null : "fx:id=\"annotationTextField\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert saveLogsToFileButton != null : "fx:id=\"saveLogsToFileButton\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert mapPane != null : "fx:id=\"mapPane\" was not injected: check your FXML file 'Sample.fxml'.";
-		//end generated
-		
+		// end generated
+
 		initializeStage2();
 
 	}
 
-	//generated
-	
+	// generated
+
 	@FXML
 	private SplitPane defaultPane;
 
