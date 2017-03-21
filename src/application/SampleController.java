@@ -2,6 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,7 +11,9 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -18,10 +21,64 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class SampleController implements Initializable {
+public class SampleController  {
 
 	private MainModel model = MainModel.getInstance();
+	private final String oobWarning = "The UAS is out of the specified boundary";
+
+	/**
+	 * ui updates based on changing gps location
+	 */
+	private ChangeListener<GpsLocation> gpsChangeListener = new ChangeListener<GpsLocation>() {
+		@Override
+		public void changed(ObservableValue<? extends GpsLocation> observable, GpsLocation oldValue,
+				GpsLocation newValue) {
+
+			if (newValue != null) {
+
+				// Update position on gui
+				Platform.runLater(() -> {
+					gpsLocationLabel.setText(newValue.toString());
+				});
+
+				// Check bounds
+				Boundary bounds = model.getBounds();
+				if (bounds != null) {
+					if (model.shouldIssueBoundaryWarning() && !bounds.inBounds(newValue)) {
+
+						// issue boundary warning
+						try {
+							Stage stage = new Stage();
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("WarningMessage.fxml"));
+							Parent root = loader.load();
+							WarningController controller = (WarningController) loader.getController();
+
+							controller.configure(oobWarning);
+
+							Scene scene = new Scene(root);
+
+							scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+							stage.setScene(scene);
+							stage.show();
+
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					} else if (!model.shouldIssueBoundaryWarning() && bounds.inBounds(newValue)) {
+						// Enable warnings after in bounds again
+						model.setShouldIssueBoundaryWarning(true);
+					}
+
+				}
+
+			}
+		}
+
+	};
 
 	@FXML
 	public void newLog() {
@@ -31,6 +88,7 @@ public class SampleController implements Initializable {
 		}
 		GpsLog log = new GpsLog(model.getLocation(), annotation);
 		model.getLogs().add(log);
+
 	}
 
 	@FXML
@@ -54,46 +112,16 @@ public class SampleController implements Initializable {
 	/**
 	 * Non generated initialization code
 	 */
-	private void initializeStage2(){
-		
-		model.locationProperty().addListener(new ChangeListener<GpsLocation>() {
+	private void initializeStage2() {
 
-			@Override
-			public void changed(ObservableValue<? extends GpsLocation> observable, GpsLocation oldValue,
-					GpsLocation newValue) {
-
-				if (newValue != null) {
-
-					// Update position on gui
-					Platform.runLater(() -> {
-						gpsLocationLabel.setText(newValue.toString());
-					});
-
-					// Check bounds
-					Boundary bounds = model.getBounds();
-					if (bounds != null) {
-						if (model.shouldIssueBoundaryWarning() && !bounds.inBounds(newValue)) {
-
-							// TODO issue boundary warning
-
-						} else if (!model.shouldIssueBoundaryWarning() && bounds.inBounds(newValue)) {
-							// Enable warnings after in bounds again
-							model.setShouldIssueBoundaryWarning(true);
-						}
-
-					}
-
-				}
-			}
-
-		});
-		
+		// ui updates based on changing gps location
+		model.locationProperty().addListener(gpsChangeListener);
 	}
-	
-	// This method is called by the FXMLLoader when initialization is complete
-	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
-		//generated
+	// This method is called by the FXMLLoader when initialization is complete
+	public void initialize() {
+
+		// generated
 		assert defaultPane != null : "fx:id=\"defaultPane\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert toolbarPane != null : "fx:id=\"toolbarPane\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert locationVBox != null : "fx:id=\"locationVBox\" was not injected: check your FXML file 'Sample.fxml'.";
@@ -109,14 +137,14 @@ public class SampleController implements Initializable {
 		assert annotationTextField != null : "fx:id=\"annotationTextField\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert saveLogsToFileButton != null : "fx:id=\"saveLogsToFileButton\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert mapPane != null : "fx:id=\"mapPane\" was not injected: check your FXML file 'Sample.fxml'.";
-		//end generated
-		
+		// end generated
+
 		initializeStage2();
 
 	}
 
-	//generated
-	
+	// generated
+
 	@FXML
 	private SplitPane defaultPane;
 
