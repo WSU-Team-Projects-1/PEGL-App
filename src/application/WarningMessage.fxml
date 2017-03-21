@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="mainPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="mainPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WarningController">
    <children>
       <Label id="warningContentsLabel" fx:id="warningContentsLabel" alignment="TOP_LEFT" layoutX="63.0" layoutY="126.0" prefHeight="62.0" prefWidth="460.0" text="Warning message goes here, Josh." />
       <Button id="okButton" fx:id="okButton" layoutX="431.0" layoutY="299.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="OK" />
