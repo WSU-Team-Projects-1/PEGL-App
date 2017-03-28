@@ -1,5 +1,6 @@
 package application;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +13,14 @@ public class WarningMessageController {
 		okButton.setOnAction((event) -> {
 			Stage stage = (Stage) okButton.getScene().getWindow();
 			stage.close();
+		});
+	}
+	
+	public void configure(String message) {
+		// could be done without runlater because this is before the ui is drawn
+		// but its there for safety
+		Platform.runLater(() -> {
+			warningContentsLabel.setText(message);
 		});
 	}
 	

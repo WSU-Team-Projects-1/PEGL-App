@@ -52,7 +52,7 @@ public class SampleController {
 							Stage stage = new Stage();
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("WarningMessage.fxml"));
 							Parent root = loader.load();
-							WarningController controller = (WarningController) loader.getController();
+							WarningMessageController controller = (WarningMessageController) loader.getController();
 
 							controller.configure(oobWarning);
 
