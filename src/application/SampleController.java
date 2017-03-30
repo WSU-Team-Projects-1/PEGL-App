@@ -156,7 +156,7 @@ public class SampleController {
 				System.exit(0);
 			}
 		});
-		
+
 		new GMaps(mapPane);
 
 	}
