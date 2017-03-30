@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane id="mainPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProxyPairingController">
+   <children>
+      <Label id="instructionLabel" fx:id="instructionLabel" alignment="TOP_LEFT" layoutX="63.0" layoutY="60.0" prefHeight="80.0" prefWidth="458.0" text="Put instructions here..." />
+      <Button id="okButton" fx:id="okButton" layoutX="431.0" layoutY="299.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="OK" />
+      <Button id="cancelButton" fx:id="cancelButton" cancelButton="true" defaultButton="true" layoutX="514.0" layoutY="299.0" mnemonicParsing="false" text="Cancel" />
+      <Label layoutX="63.0" layoutY="204.0" prefHeight="21.0" prefWidth="164.0" text="Port Number (optional):" />
+      <TextField id="portTextField" fx:id="portTextField" layoutX="227.0" layoutY="199.0" prefHeight="31.0" prefWidth="292.0" promptText="Enter Port Number..." />
+      <Label id="ipLabel" fx:id="ipLabel" layoutX="63.0" layoutY="151.0" prefHeight="21.0" prefWidth="164.0" text="IP Address:" />
+      <Label id="ipContentsLabel" fx:id="ipContentsLabel" layoutX="227.0" layoutY="151.0" prefHeight="21.0" prefWidth="292.0" text="IP Address goes here!" />
+   </children>
+</Pane>

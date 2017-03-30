@@ -1,33 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <SplitPane id="defaultPane" fx:id="defaultPane" dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="818.0" prefWidth="1137.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-         <children>
-            <Pane id="toolbarPane" fx:id="toolbarPane" layoutX="81.0" layoutY="164.0" prefHeight="816.0" prefWidth="334.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	<items>
+		<Pane id="toolbarPane" fx:id="toolbarPane" layoutX="81.0" layoutY="164.0" prefHeight="816.0" prefWidth="334.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+			<children>
+            <VBox id="locationVBox" fx:id="locationVBox" layoutX="-1.0" prefHeight="122.0" prefWidth="334.0">
                <children>
-                  <Button id="loadSearchAreaButton" fx:id="loadSearchAreaButton" layoutX="99.0" layoutY="122.0" mnemonicParsing="false" text="Load Search Area" />
-                  <Button id="createGPSLogButton" fx:id="createGPSLogButton" layoutX="22.0" layoutY="557.0" mnemonicParsing="false" text="Create GPS Log" />
-                  <Button id="setSearchBoundariesButton" fx:id="setSearchBoundariesButton" layoutX="82.0" layoutY="169.0" mnemonicParsing="false" text="Set Search Boundaries" />
-                  <Button id="connectToDJIButton" fx:id="connectToDJIButton" layoutX="110.0" layoutY="212.0" mnemonicParsing="false" text="Connect to DJI" />
-                  <Button id="saveGPSLogButton" fx:id="saveGPSLogButton" layoutX="189.0" layoutY="557.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Save GPS Log" />
-                  <Button id="saveLogsToFileButton" fx:id="saveLogsToFileButton" layoutX="24.0" layoutY="762.0" mnemonicParsing="false" onMouseClicked="#saveLogsToFile" prefHeight="31.0" prefWidth="288.0" text="Save Logs to File" />
-                  <Label id="currentLocationLabel" fx:id="currentLocationLabel" layoutX="24.0" layoutY="20.0" prefHeight="31.0" prefWidth="117.0" text="Current Location:" />
-                  <Label id="gpsLocationLabel" fx:id="gpsLocationLabel" layoutX="24.0" layoutY="60.0" prefHeight="21.0" prefWidth="288.0" text="Not Yet Connected to DJI" />
-                  <TextArea id="annotationTextField" fx:id="annotationTextField" layoutX="24.0" layoutY="608.0" prefHeight="135.0" prefWidth="288.0" />
+                  <Label id="currentLocationLabel" fx:id="currentLocationLabel" alignment="TOP_LEFT" prefHeight="31.0" prefWidth="339.0" text="Current Location:">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label id="gpsLocationLabel" fx:id="gpsLocationLabel" alignment="TOP_LEFT" prefHeight="21.0" prefWidth="347.0" text="Not Yet Connected to DJI">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
                </children>
-            </Pane>
-         </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-         <children>
-            <Pane id="mapPane" fx:id="mapPane" layoutX="188.0" layoutY="190.0" prefHeight="816.0" prefWidth="793.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children></AnchorPane>
-  </items>
+            </VBox>
+            <StackPane id="connectAndSearchStackPane" fx:id="connectAndSearchStackPane" layoutX="-1.0" layoutY="122.0" prefHeight="165.0" prefWidth="334.0">
+               <children>
+                  <Button id="loadSearchAreaButton" fx:id="loadSearchAreaButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Load Search Area" StackPane.alignment="BOTTOM_CENTER" />
+                  <Button id="setSearchBoundariesButton" fx:id="setSearchBoundariesButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Set Search Boundaries" StackPane.alignment="CENTER" />
+                  <Button id="connectToDJIButton" fx:id="connectToDJIButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Connect to DJI" StackPane.alignment="TOP_CENTER" />
+               </children>
+            </StackPane>
+            <StackPane id="gpsLoggingStackPane" fx:id="gpsLoggingStackPane" layoutX="-1.0" layoutY="574.0" prefHeight="242.0" prefWidth="334.0">
+               <children>
+                  <Button id="createGPSLogButton" fx:id="createGPSLogButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#newLog" text="Create GPS Log" StackPane.alignment="TOP_LEFT">
+                     <StackPane.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </StackPane.margin>
+                  </Button>
+                  <Button id="saveGPSLogButton" fx:id="saveGPSLogButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Save GPS Log" StackPane.alignment="TOP_RIGHT">
+                     <StackPane.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </StackPane.margin>
+                  </Button>
+                  <TextArea id="annotationTextField" fx:id="annotationTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="135.0" prefWidth="288.0" />
+                  <Button id="saveLogsToFileButton" fx:id="saveLogsToFileButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onMouseClicked="#saveLogsToFile" prefHeight="31.0" prefWidth="288.0" text="Save Logs to File" StackPane.alignment="BOTTOM_CENTER">
+                     <StackPane.margin>
+                        <Insets bottom="10.0" />
+                     </StackPane.margin>
+                  </Button>
+               </children>
+            </StackPane>
+			</children>
+		</Pane>
+		<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+			<children>
+				<Pane id="mapPane" fx:id="mapPane" layoutX="188.0" layoutY="190.0" prefHeight="816.0" prefWidth="793.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+			</children>
+		</AnchorPane>
+	</items>
 </SplitPane>

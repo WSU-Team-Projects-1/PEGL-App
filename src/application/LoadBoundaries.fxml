@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane id="mainPane" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoadBoundariesController">
+   <children>
+      <Label id="instructionLabel" fx:id="instructionLabel" layoutX="63.0" layoutY="60.0" text="Enter the top left and bottom right boundaries (Latitude, Longitude):" />
+      <Button id="okButton" fx:id="okButton" layoutX="431.0" layoutY="299.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="OK" />
+      <Button id="cancelButton" fx:id="cancelButton" cancelButton="true" defaultButton="true" layoutX="514.0" layoutY="299.0" mnemonicParsing="false" text="Cancel" />
+      <TextField id="topLeftLatTextField" fx:id="topLeftLatTextField" layoutX="234.0" layoutY="99.0" prefHeight="31.0" prefWidth="292.0" promptText="Enter Latitude of Top Left Corner..." />
+      <TextField id="botRightLatTextField" fx:id="botRightLatTextField" layoutX="234.0" layoutY="185.0" prefHeight="31.0" prefWidth="292.0" promptText="Enter Latitude of Bottom Right Corner..." />
+      <TextField id="topLeftLongTextField" fx:id="topLeftLongTextField" layoutX="234.0" layoutY="141.0" prefHeight="31.0" prefWidth="292.0" promptText="Enter Longitude of Top Left Corner..." />
+      <TextField id="botRightLongTextField" fx:id="botRightLongTextField" layoutX="234.0" layoutY="229.0" prefHeight="31.0" prefWidth="292.0" promptText="Enter Longitude of Bottom Right Corner..." />
+      <Label id="topLeftLatLabel" fx:id="topLeftLatLabel" layoutX="63.0" layoutY="104.0" prefHeight="21.0" prefWidth="164.0" text="Top Left Latitude:" />
+      <Label id="topLeftLongLabel" fx:id="topLeftLongLabel" layoutX="63.0" layoutY="146.0" prefHeight="21.0" prefWidth="164.0" text="Top Left Longitude:" />
+      <Label id="botRightLatLabel" fx:id="botRightLatLabel" layoutX="63.0" layoutY="190.0" prefHeight="21.0" prefWidth="164.0" text="Bottom Right Latitude:" />
+      <Label id="botRightLongLabel" fx:id="botRightLongLabel" layoutX="63.0" layoutY="234.0" prefHeight="21.0" prefWidth="164.0" text="Bottom Right Longitude:" />
+   </children>
+</Pane>
