@@ -8,12 +8,14 @@ import javax.swing.JLabel;
 
 import javafx.application.Application;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
-
+import javafx.scene.layout.Pane;
 
 import com.google.maps.model.LatLng;
 
@@ -44,6 +46,20 @@ public class GMaps extends Application {
 		
 		return imageUrl;
 	};
+	
+	
+	public GMaps(Pane node){
+		 LatLng point = new LatLng(39.739795, -84.181692);
+			
+	                 
+	     String imageSource = getGoogleMap(point);
+	         
+	     Image image = new Image(imageSource);
+	     ImageView imageView = new ImageView(image);
+	         	         
+	   
+	     node.getChildren().add( imageView);
+	}
 	
 	public void start(Stage stage) {
 		 LatLng point = new LatLng(39.739795, -84.181692);

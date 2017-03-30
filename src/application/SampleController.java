@@ -156,6 +156,9 @@ public class SampleController {
 				System.exit(0);
 			}
 		});
+		
+		new GMaps(mapPane);
+
 	}
 
 	// This method is called by the FXMLLoader when initialization is complete
