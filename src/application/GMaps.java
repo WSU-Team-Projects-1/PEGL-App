@@ -6,36 +6,63 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
+
+
 import com.google.maps.model.LatLng;
 
 
-public class GMaps {
-
+public class GMaps extends Application {
+	
 	public static void main(String[] args) throws Exception {
-		LatLng point1 = new LatLng(39.739795, -84.181692);
+		launch(args);
+	}
+	
+	public static String getGoogleMap(LatLng point){
 		LatLng cornerPoint1BR = new LatLng(0, 0);
 		LatLng cornerPoint1BL = new LatLng(0, 0);
 		LatLng cornerPoint1TR = new LatLng(0, 0);
 		LatLng cornerPoint1TL = new LatLng(0, 0);
 		int pixelWidth = 700;
 		int pixelHeight = 700;
-		cornerPoint1BR = getBottomRightBoundLatLng( getXProj(point1, pixelWidth), getYProj(point1, pixelWidth, pixelHeight), pixelWidth, pixelHeight, 16); 
-		cornerPoint1BL = getBottomLeftBoundLatLng( getXProj(point1, pixelWidth), getYProj(point1, pixelWidth, pixelHeight), pixelWidth, pixelHeight, 16);
-		cornerPoint1TR = getTopRightBoundLatLng( getXProj(point1, pixelWidth), getYProj(point1, pixelWidth, pixelHeight), pixelWidth, pixelHeight, 16);
-		cornerPoint1TL = getTopLeftBoundLatLng( getXProj(point1, pixelWidth), getYProj(point1, pixelWidth, pixelHeight), pixelWidth, pixelHeight, 16);
-	    JFrame frame = new JFrame("Test Map");
-	    URL imageUrl = new URL("http://maps.googleapis.com/maps/api/staticmap?zoom=16&"
-	    		+ "size=" + pixelWidth + "x" + pixelHeight + "&center=" + point1.lat + "," + point1.lng + "&markers=" + cornerPoint1BR.lat + "," + cornerPoint1BR.lng 
+		cornerPoint1BR = getBottomRightBoundLatLng( getXProj(point, pixelWidth), getYProj(point, pixelWidth, pixelHeight), pixelWidth, pixelHeight, 16); 
+		cornerPoint1BL = getBottomLeftBoundLatLng( getXProj(point, pixelWidth), getYProj(point, pixelWidth, pixelHeight), pixelWidth, pixelHeight, 16);
+		cornerPoint1TR = getTopRightBoundLatLng( getXProj(point, pixelWidth), getYProj(point, pixelWidth, pixelHeight), pixelWidth, pixelHeight, 16);
+		cornerPoint1TL = getTopLeftBoundLatLng( getXProj(point, pixelWidth), getYProj(point, pixelWidth, pixelHeight), pixelWidth, pixelHeight, 16);
+	    String imageUrl = new String("http://maps.googleapis.com/maps/api/staticmap?zoom=16&"
+	    		+ "size=" + pixelWidth + "x" + pixelHeight + "&center=" + point.lat + "," + point.lng + "&markers=" + cornerPoint1BR.lat + "," + cornerPoint1BR.lng 
 	    		+ "|" + cornerPoint1BL.lat + "," + cornerPoint1BL.lng + 
 	    		"|" + cornerPoint1TR.lat + "," + cornerPoint1TR.lng +
 	    		"|" + cornerPoint1TL.lat + "," + cornerPoint1TL.lng + "&sensor=true");
-	    frame.add(new JLabel(new ImageIcon(new ImageIcon(imageUrl).getImage())));
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setSize(pixelWidth, pixelHeight);
-	    frame.setVisible(true);
-	}
+		
+		
+		return imageUrl;
+	};
 	
-	
+	public void start(Stage stage) {
+		 LatLng point = new LatLng(39.739795, -84.181692);
+			
+		 Group root = new Group();
+	                 
+	     String imageSource = getGoogleMap(point);
+	         
+	     Image image = new Image(imageSource);
+	     ImageView imageView = new ImageView(image);
+	         	         
+	   
+	     stage.setScene(new Scene(root));
+	     HBox box = new HBox();
+	     box.getChildren().add(imageView);
+	     root.getChildren().add(box);
+	     stage.show();
+	}	
+	 	
 	public static LatLng getTopRightBoundLatLng( double xProj, double yProj, int mapWidth, int mapHeight,int zoom) {
 		LatLng point = new LatLng(0, 0);
 		xProj = xProj + (.000016 * xProj);
