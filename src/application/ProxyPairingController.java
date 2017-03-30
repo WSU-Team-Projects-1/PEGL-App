@@ -2,11 +2,17 @@ package application;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ProxyPairingController {
@@ -23,10 +29,47 @@ public class ProxyPairingController {
 
 		okButton.setOnAction((event) -> {
 			// pass input or default value
-			System.out.println("TODO: pass port input or default value!");
+			MainModel model = MainModel.getInstance();
+			if (portTextField.getText().trim().equals("")) {
+				// default port number
+				model.setPortNum(1605);
+			} else {
+				try {
+					model.setPortNum(Integer.parseInt(portTextField.getText()));
+					// console output for testing
+					System.out.println(model.getPortNum());
+				} catch (NumberFormatException nfe) {
+					openInputError();
+				}
+			}
+			// close window
 			Stage stage = (Stage) okButton.getScene().getWindow();
 			stage.close();
 		});
+
+		cancelButton.setOnAction((event) -> {
+			// close window
+			Stage stage = (Stage) cancelButton.getScene().getWindow();
+			stage.close();
+		});
+	}
+
+	//opens warning message window if the user gives bad input
+	private void openInputError() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("WarningMessage.fxml"));
+			Parent root = loader.load();
+			WarningMessageController controller = (WarningMessageController) loader.getController();
+			controller.configure("Unusable input! Please only input an integer port number.");
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(new Scene(root));
+			stage.showAndWait();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Platform.exit();
+			System.exit(0);
+		}
 	}
 
 	public void initialize() {

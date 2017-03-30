@@ -35,11 +35,11 @@ public class MainModel {
 
 	private final List<GpsLog> logs;
 	
+	private int portNum;
+	
 	public List<GpsLog> getLogs() {
 		return logs;
 	}
-
-	
 
 	public boolean shouldIssueBoundaryWarning() {
 		return shouldIssueBoundaryWarning;
@@ -81,4 +81,13 @@ public class MainModel {
 	public GpsLocationProperty locationProperty() {
 		return location;
 	}
+	
+	public void setPortNum(int portNum) {
+		this.portNum = portNum;
+	}
+	
+	public int getPortNum() {
+		return portNum;
+	}
+
 }

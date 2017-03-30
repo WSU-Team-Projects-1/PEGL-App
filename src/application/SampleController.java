@@ -28,7 +28,7 @@ public class SampleController {
 	private final String oobWarning = "The UAS is out of the specified boundary";
 
 	/**
-	 * ui updates based on changing gps location
+	 * UI updates based on changing GPS location
 	 */
 	private ChangeListener<GpsLocation> gpsChangeListener = new ChangeListener<GpsLocation>() {
 		@Override
@@ -37,7 +37,7 @@ public class SampleController {
 
 			if (newValue != null) {
 
-				// Update position on gui
+				// Update position on GUI
 				Platform.runLater(() -> {
 					gpsLocationLabel.setText(newValue.toString());
 				});
@@ -117,10 +117,10 @@ public class SampleController {
 
 		connectToDJIButton.setOnAction((event) -> {
 			try {
-				Parent root1 = (Parent) FXMLLoader.load(getClass().getResource("ProxyPairing.fxml"));
+				Parent root = (Parent) FXMLLoader.load(getClass().getResource("ProxyPairing.fxml"));
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
-				stage.setScene(new Scene(root1));
+				stage.setScene(new Scene(root));
 				stage.showAndWait();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -131,10 +131,10 @@ public class SampleController {
 
 		loadSearchAreaButton.setOnAction((event) -> {
 			try {
-				Parent root1 = (Parent) FXMLLoader.load(getClass().getResource("LoadLocation.fxml"));
+				Parent root = (Parent) FXMLLoader.load(getClass().getResource("LoadLocation.fxml"));
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
-				stage.setScene(new Scene(root1));
+				stage.setScene(new Scene(root));
 				stage.showAndWait();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -145,10 +145,10 @@ public class SampleController {
 
 		setSearchBoundariesButton.setOnAction((event) -> {
 			try {
-				Parent root1 = (Parent) FXMLLoader.load(getClass().getResource("LoadBoundaries.fxml"));
+				Parent root = (Parent) FXMLLoader.load(getClass().getResource("LoadBoundaries.fxml"));
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
-				stage.setScene(new Scene(root1));
+				stage.setScene(new Scene(root));
 				stage.showAndWait();
 			} catch (Exception e) {
 				e.printStackTrace();
