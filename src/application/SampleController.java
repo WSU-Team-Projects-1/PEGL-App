@@ -113,37 +113,7 @@ public class SampleController {
 	 */
 	private void initializeStage2() {
 
-		model.locationProperty().addListener(new ChangeListener<GpsLocation>() {
-
-			@Override
-			public void changed(ObservableValue<? extends GpsLocation> observable, GpsLocation oldValue,
-					GpsLocation newValue) {
-
-				if (newValue != null) {
-
-					// Update position on gui
-					Platform.runLater(() -> {
-						gpsLocationLabel.setText(newValue.toString());
-					});
-
-					// Check bounds
-					Boundary bounds = model.getBounds();
-					if (bounds != null) {
-						if (model.shouldIssueBoundaryWarning() && !bounds.inBounds(newValue)) {
-
-							// TODO issue boundary warning
-
-						} else if (!model.shouldIssueBoundaryWarning() && bounds.inBounds(newValue)) {
-							// Enable warnings after in bounds again
-							model.setShouldIssueBoundaryWarning(true);
-						}
-
-					}
-
-				}
-			}
-
-		});
+		model.locationProperty().addListener(gpsChangeListener);
 
 		connectToDJIButton.setOnAction((event) -> {
 			try {
