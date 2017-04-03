@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javafx.scene.layout.BorderPane;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -231,6 +233,6 @@ public class SampleController {
 	private Button saveLogsToFileButton;
 
 	@FXML
-	private Pane mapPane;
+	private StackPane mapPane;
 
 }
