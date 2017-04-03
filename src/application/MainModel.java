@@ -18,6 +18,7 @@ public class MainModel {
 	private MainModel() {
 		location = new GpsLocationProperty();
 		logs = new ArrayList<>(50);
+		portNum = 1605;
 	}
 
 	//

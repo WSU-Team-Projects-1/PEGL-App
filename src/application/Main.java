@@ -14,10 +14,12 @@ import javafx.stage.WindowEvent;
 public class Main extends Application {
 
 	private boolean usingTestClient = true;
-	private boolean runningServer = true;
+	private boolean runningServer = true; //Allways true?
 
 	private GpsServer server;
 
+	private MainModel model = MainModel.getInstance();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -42,7 +44,8 @@ public class Main extends Application {
 		}
 
 		if (runningServer) {
-			server = new GpsServer();
+			//TODO restart with portnum change?
+			server = new GpsServer(model.getPortNum());
 			server.setDaemon(true);
 			server.start();
 

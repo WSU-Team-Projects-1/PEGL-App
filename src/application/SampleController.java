@@ -48,26 +48,10 @@ public class SampleController {
 				Boundary bounds = model.getBounds();
 				if (bounds != null) {
 					if (model.shouldIssueBoundaryWarning() && !bounds.inBounds(newValue)) {
+						model.setShouldIssueBoundaryWarning(false);
 
 						// issue boundary warning
-						try {
-							Stage stage = new Stage();
-							FXMLLoader loader = new FXMLLoader(getClass().getResource("WarningMessage.fxml"));
-							Parent root = loader.load();
-							WarningMessageController controller = (WarningMessageController) loader.getController();
-
-							controller.configure(oobWarning);
-
-							Scene scene = new Scene(root);
-
-							scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-							stage.setScene(scene);
-							stage.show();
-
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						new WarningIssuer(oobWarning);
 
 					} else if (!model.shouldIssueBoundaryWarning() && bounds.inBounds(newValue)) {
 						// Enable warnings after in bounds again

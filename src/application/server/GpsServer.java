@@ -10,6 +10,13 @@ import java.util.concurrent.TimeUnit;
 
 import application.GpsLocation;
 import application.MainModel;
+import application.WarningIssuer;
+import application.WarningMessageController;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -23,47 +30,58 @@ public class GpsServer extends Thread {
 
 	private int port = 1605; // TODO configure from settings
 
-	private MainModel model;
+	private final MainModel model;
 
-	/**
-	 * Use default port value.
-	 */
-	public GpsServer() {
-		model = MainModel.getInstance();
-	}
+	private final String conectionWarning = "Connection to PEGL Proxy lost. Please start it again.";
 
 	public GpsServer(int port) {
-		this();
+		model = MainModel.getInstance();
 		this.port = port;
 	}
 
+	// private Socket p(Object o) {
+	// System.out.println(o);
+	// return null;
+	// }
+
 	@Override
 	public void run() {
-		System.out.println("Server start");
+		while (true) {
+			System.out.println("Server start");
 
-		try (ServerSocket serverSocket = new ServerSocket(port);
-				Socket clientSocket = serverSocket.accept();
-				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
+			try (ServerSocket serverSocket = new ServerSocket(port);
+					// Socket asdfsdaf = p("Made server socket");
+					Socket clientSocket = serverSocket.accept();
+					// Socket asdfsdafadf = p("Got client");
+					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+					BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
 
-			String inputLine;
+				String inputLine;
+				System.out.println("connected");
+				model.setShouldIssueComunicationWarning(true);
 
-			// respond to client to let it know communication is ready
-			out.println();
-
-			// While connection is alive
-			while ((inputLine = in.readLine()) != null) {
-				// System.err.println(inputLine);
-
-				model.setLocation( GpsLocation.parse(inputLine));
-
+				// respond to client to let it know communication is ready
 				out.println();
 
-			}
+				// While connection is alive
+				while ((inputLine = in.readLine()) != null) {
+					// System.err.println(inputLine);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+					model.setLocation(GpsLocation.parse(inputLine));
+
+					out.println();
+
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.err.println("Server dissconect");
+
+				if (model.shouldIssueComunicationWarning()) {
+					model.setShouldIssueComunicationWarning(false);
+					new WarningIssuer(conectionWarning);
+				}
+			}
 		}
 	}
 
@@ -74,12 +92,14 @@ public class GpsServer extends Thread {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 
-		GpsServer gpsServer = new GpsServer();
+		GpsServer gpsServer = new GpsServer(1605);
 		gpsServer.start();
 
 		System.out.println("server testing:");
 		while (true) {
-			System.out.println(gpsServer.model.getLocation());
+			GpsLocation l = gpsServer.model.getLocation();
+			if (l != null)
+				System.out.println(l);
 			TimeUnit.SECONDS.sleep(1);
 		}
 	}
