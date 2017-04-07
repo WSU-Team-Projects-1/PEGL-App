@@ -36,8 +36,6 @@ public class ProxyPairingController {
 			} else {
 				try {
 					model.setPortNum(Integer.parseInt(portTextField.getText()));
-					// console output for testing
-					System.out.println(model.getPortNum());
 				} catch (NumberFormatException nfe) {
 					openInputError();
 				}

@@ -29,9 +29,9 @@ public class TestClient extends Thread {
 
 		System.out.println("client start");
 
-		try (Socket kkSocket = new Socket(hostName, portNumber);
-				PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
-				BufferedReader in = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));) {
+		try (Socket clientSocket = new Socket(hostName, portNumber);
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
 
 			String fromServer;
 

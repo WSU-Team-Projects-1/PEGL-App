@@ -2,6 +2,8 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 public class MainModel {
 
@@ -17,7 +19,8 @@ public class MainModel {
 
 	private MainModel() {
 		location = new GpsLocationProperty();
-		logs = new ArrayList<>(50);
+		//logs = new ArrayList<>(50);
+		logs = FXCollections.observableArrayList(new ArrayList<>(50));
 		portNum = 1605;
 	}
 
@@ -38,11 +41,11 @@ public class MainModel {
 
 	private GpsLocation searchLocation;
 	
-	private final List<GpsLog> logs;
+	private final ObservableList<GpsLog> logs;
 	
 	private int portNum;
 	
-	public List<GpsLog> getLogs() {
+	public ObservableList<GpsLog> getLogs() {
 		return logs;
 	}
 

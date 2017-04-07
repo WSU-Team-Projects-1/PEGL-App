@@ -30,8 +30,6 @@ public class LoadBoundariesController {
 					GpsLocation botRight = new GpsLocation(botRightLatitude, botRightLongitude);
 					Boundary bounds = new Boundary(topLeft, botRight);
 					model.setBounds(bounds);
-					// console output for testing
-					System.out.println("(" + topLeft.toString() + ")" + " (" + botRight.toString() + ")");
 				} catch (NumberFormatException e) {
 					openInputError();
 				}

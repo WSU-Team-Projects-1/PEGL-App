@@ -14,7 +14,7 @@ import javafx.stage.WindowEvent;
 public class Main extends Application {
 
 	private boolean usingTestClient = true;
-	private boolean runningServer = true; //Allways true?
+	private boolean runningServer = true; //Always true?
 
 	private GpsServer server;
 

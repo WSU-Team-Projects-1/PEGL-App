@@ -24,8 +24,6 @@ public class LoadLocationController {
 					double longitude = Double.parseDouble(longTextField.getText().trim());
 					GpsLocation center = new GpsLocation(latitude, longitude);
 					model.setSearchLocation(center);
-					// console output for testing
-					System.out.println(model.getLocation().toString());
 				} catch (NumberFormatException e) {
 					openInputError();
 				}

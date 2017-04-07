@@ -50,6 +50,10 @@ public class GpsLog {
 	 */
 	@Override
 	public String toString() {
-		return loc.toString() + ", \"" + annotation.replaceAll("\"", "").replaceAll("\n", " \\\\n ") + "\"";
+		return loc.toString(); //for observable list
+	}
+	
+	public String toSaveString() {
+		return loc.toString() + ", \"" + annotation.replaceAll("\"", "").replaceAll("\n", " \\\\n ") + "\""; //for saving to file
 	}
 }

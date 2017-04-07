@@ -2,10 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
-
-import javafx.scene.layout.BorderPane;
 
 import com.google.maps.model.LatLng;
 
@@ -18,8 +15,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -92,8 +91,8 @@ public class SampleController {
 		try (PrintWriter logFile = new PrintWriter(new File(fileName))) {
 
 			for (GpsLog log : model.getLogs()) {
-				logFile.println(log.toString());
-				System.out.println(log.toString());
+				logFile.println(log.toSaveString());
+				System.out.println(log.toSaveString());
 			}
 
 		} catch (FileNotFoundException e) {
@@ -108,6 +107,8 @@ public class SampleController {
 	private void initializeStage2() {
 
 		model.locationProperty().addListener(gpsChangeListener);
+		
+		logList.setItems(model.getLogs());
 
 		GMaps foo = new GMaps();
 		model.setMap(foo);
@@ -137,9 +138,11 @@ public class SampleController {
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setScene(new Scene(root));
 				stage.showAndWait();
+				if(model.getSearchLocation() != null) {
 				GpsLocation mapCenter = model.getSearchLocation();
 				model.getMap().setMapCenter(GpsLocation.convertGPSLocation(mapCenter));
 				model.getMap().drawMap();
+				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -155,15 +158,25 @@ public class SampleController {
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setScene(new Scene(root));
 				stage.showAndWait();
+				if(model.getBounds() != null) {
 				Boundary bounds = model.getBounds();
 				model.getMap().setProxyBorder(bounds.getTopLeft(), bounds.getBottomRight());
 				model.getMap().drawMap();
+				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				Platform.exit();
 				System.exit(0);
 			}
+		});
+		
+		logList.setOnMouseClicked((event) -> {
+			annotationTextField.setText(logList.getSelectionModel().getSelectedItem().getAnotation());
+		});
+		
+		saveGPSLogButton.setOnAction((event) -> {
+			logList.getSelectionModel().getSelectedItem().setAnotation(annotationTextField.getText());
 		});
 
 		// new GMaps(mapPane);
@@ -191,6 +204,7 @@ public class SampleController {
 		assert saveGPSLogButton != null : "fx:id=\"saveGPSLogButton\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert annotationTextField != null : "fx:id=\"annotationTextField\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert saveLogsToFileButton != null : "fx:id=\"saveLogsToFileButton\" was not injected: check your FXML file 'Sample.fxml'.";
+		assert logList != null : "fx:id=\"logList\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert mapPane != null : "fx:id=\"mapPane\" was not injected: check your FXML file 'Sample.fxml'.";
 		// end generated
 
@@ -241,6 +255,9 @@ public class SampleController {
 
 	@FXML
 	private Button saveLogsToFileButton;
+	
+	@FXML
+	private ListView<GpsLog> logList;
 
 	@FXML
 	private StackPane mapPane;
