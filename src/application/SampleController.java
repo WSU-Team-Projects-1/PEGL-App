@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 
 import javafx.scene.layout.BorderPane;
 
+import com.google.maps.model.LatLng;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,6 +28,11 @@ import javafx.stage.Stage;
 
 public class SampleController {
 
+	private LatLng testMapCenter = new LatLng(39.781484, -84.06358);
+	private LatLng testGPSPoint = new LatLng(39.780651, -84.064937);
+	private LatLng testTLBorder = new LatLng(39.785334, -84.067876);
+	private LatLng testBRBorder = new LatLng(39.779084, -84.059422);
+
 	private MainModel model = MainModel.getInstance();
 	private final String oobWarning = "The UAS is out of the specified boundary";
 
@@ -42,6 +49,8 @@ public class SampleController {
 				// Update position on GUI
 				Platform.runLater(() -> {
 					gpsLocationLabel.setText(newValue.toString());
+					model.getMap().setGPSPoint(GpsLocation.convertGPSLocation(newValue)); 
+					model.getMap().drawMap();
 				});
 
 				// Check bounds
@@ -49,7 +58,6 @@ public class SampleController {
 				if (bounds != null) {
 					if (model.shouldIssueBoundaryWarning() && !bounds.inBounds(newValue)) {
 						model.setShouldIssueBoundaryWarning(false);
-
 						// issue boundary warning
 						new WarningIssuer(oobWarning);
 
@@ -101,6 +109,13 @@ public class SampleController {
 
 		model.locationProperty().addListener(gpsChangeListener);
 
+		GMaps foo = new GMaps();
+		model.setMap(foo);
+		foo.setNode(mapPane);
+		foo.setMapCenter(testMapCenter);
+		foo.setGPSPoint(testGPSPoint);
+		foo.setProxyBorder(testTLBorder, testBRBorder);
+
 		connectToDJIButton.setOnAction((event) -> {
 			try {
 				Parent root = (Parent) FXMLLoader.load(getClass().getResource("ProxyPairing.fxml"));
@@ -122,6 +137,10 @@ public class SampleController {
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setScene(new Scene(root));
 				stage.showAndWait();
+				GpsLocation mapCenter = model.getSearchLocation();
+				model.getMap().setMapCenter(GpsLocation.convertGPSLocation(mapCenter));
+				model.getMap().drawMap();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				Platform.exit();
@@ -136,6 +155,10 @@ public class SampleController {
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setScene(new Scene(root));
 				stage.showAndWait();
+				Boundary bounds = model.getBounds();
+				model.getMap().setProxyBorder(bounds.getTopLeft(), bounds.getBottomRight());
+				model.getMap().drawMap();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				Platform.exit();
@@ -143,7 +166,10 @@ public class SampleController {
 			}
 		});
 
-		new GMaps(mapPane);
+		// new GMaps(mapPane);
+		Platform.runLater(() -> {
+			foo.drawMap();
+		});
 
 	}
 

@@ -1,5 +1,7 @@
 package application;
 
+import com.google.maps.model.LatLng;
+
 /**
  * 
  * Simple struct for capturing latitude and longitude.
@@ -28,6 +30,10 @@ public class GpsLocation {
 		return new GpsLocation(lat, lon);
 	}
 
+	public static LatLng convertGPSLocation(GpsLocation point){
+		 LatLng latLng = new LatLng(point.latitude, point.longitude);
+		 return latLng;
+	}
 	/**
 	 * latitude + ", " + longitude
 	 */

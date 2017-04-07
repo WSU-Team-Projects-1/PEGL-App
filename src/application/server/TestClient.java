@@ -17,9 +17,12 @@ import application.GpsLocation;
  */
 public class TestClient extends Thread {
 
+	private double gpsLat = 39.781361;
+	private double gpsLng = -84.067882;
 	@Override
 	public void run() {
 		// 39.781361, -84.067882
+		
 
 		String hostName = "localhost";
 		int portNumber = 1605;
@@ -36,7 +39,7 @@ public class TestClient extends Thread {
 			while ((fromServer = in.readLine()) != null) {
 				// System.out.println("Server: " + fromServer);
 
-				GpsLocation gpsLocation = new GpsLocation(39.781361 + Math.random(), 84.067882);
+				GpsLocation gpsLocation = new GpsLocation(gpsLat + (Math.random() / 1000), gpsLng   + (Math.random() / 1000));
 
 				out.println(gpsLocation.toString());
 

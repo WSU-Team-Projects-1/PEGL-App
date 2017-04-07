@@ -23,17 +23,21 @@ public class MainModel {
 
 	//
 
+	
+
 	/**
 	 * Written to from server thread and read from other threads. TODO: Look
 	 * into if this needs thread safety measures.
 	 */
 	private final GpsLocationProperty location;
-
+	private GMaps map;
 	private Boundary bounds;
 
 	private boolean shouldIssueBoundaryWarning = true;
 	private boolean shouldIssueComunicationWarning = true;
 
+	private GpsLocation searchLocation;
+	
 	private final List<GpsLog> logs;
 	
 	private int portNum;
@@ -57,9 +61,17 @@ public class MainModel {
 	public void setShouldIssueComunicationWarning(boolean shouldIssueComunicationWarning) {
 		this.shouldIssueComunicationWarning = shouldIssueComunicationWarning;
 	}
-
+	
 	public Boundary getBounds() {
 		return bounds;
+	}
+
+	public void setSearchLocation(GpsLocation searchLocation) {
+		this.searchLocation = searchLocation;
+	}
+
+	public GpsLocation getSearchLocation() {
+		return searchLocation;
 	}
 
 	public void setBounds(Boundary bounds) {
@@ -91,4 +103,11 @@ public class MainModel {
 		return portNum;
 	}
 
+	public GMaps getMap() {
+		return map;
+	}
+
+	public void setMap(GMaps map) {
+		this.map = map;
+	}
 }

@@ -23,7 +23,7 @@ public class LoadLocationController {
 					double latitude = Double.parseDouble(latTextField.getText().trim());
 					double longitude = Double.parseDouble(longTextField.getText().trim());
 					GpsLocation center = new GpsLocation(latitude, longitude);
-					model.setLocation(center);
+					model.setSearchLocation(center);
 					// console output for testing
 					System.out.println(model.getLocation().toString());
 				} catch (NumberFormatException e) {

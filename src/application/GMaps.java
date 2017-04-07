@@ -11,6 +11,30 @@ import com.google.maps.model.LatLng;
 
 
 public class GMaps {
+	
+	private LatLng mapCenter;
+	private LatLng gpsPoint;
+	private LatLng proxyTopLeftPoint;
+	private LatLng proxyBottomRightPoint;
+	private StackPane node;
+	
+	public void setMapCenter(LatLng point){
+		this.mapCenter = point;
+	}
+	
+	public void setGPSPoint(LatLng point){
+		this.gpsPoint = point;
+	}
+	
+	public void setProxyBorder(LatLng tLPoint, LatLng bRPoint){
+		this.proxyTopLeftPoint = tLPoint;
+		this.proxyBottomRightPoint = bRPoint;
+	}
+	
+	public void setNode(StackPane node){
+		this.node = node;
+	}
+	
 
 	public static String getGoogleMap(LatLng point, int zoom) {
 		int pixelWidth = 900;
@@ -21,8 +45,8 @@ public class GMaps {
 
 		return imageUrl;
 	};
-
-	public GMaps(StackPane node) {		
+	
+	/*public GMaps(StackPane node){
 		int zoom = 16;
 		double PIXEL_SIZE = 256 * Math.pow(2, zoom);
 		
@@ -38,11 +62,48 @@ public class GMaps {
 		Pane pane = new Pane(imageView, getProxy(mapCenter, proxyTopLeftPoint, proxyBottomRightPoint, (int) PIXEL_SIZE, image), getGPSLoc(mapCenter, gpsPoint, (int) PIXEL_SIZE, image));
 	
 		node.getChildren().addAll(pane);
+	}*/
+
+	public GMaps(StackPane node){//, LatLng mapCenter, LatLng gpsPoint, LatLng proxyTopLeftPoint, LatLng proxyBottomRightPoint) {		
+		int zoom = 14;
+		double PIXEL_SIZE = 256 * Math.pow(2, zoom);
 		
+		/*LatLng mapCenter = new LatLng(39.781484, -84.06358);
+		LatLng gpsPoint = new LatLng(39.780651, -84.064937);
+		LatLng proxyTopLeftPoint = new LatLng(39.785334, -84.067876);
+		LatLng proxyBottomRightPoint = new LatLng (39.779084, -84.059422); 
+		*/
+		String imageSource = getGoogleMap(mapCenter, zoom);
+		Image image = new Image(imageSource);
+		ImageView imageView = new ImageView(image);
+		
+		Pane pane = new Pane(imageView, getProxy(mapCenter, proxyTopLeftPoint, proxyBottomRightPoint, (int) PIXEL_SIZE, image), getGPSLoc(mapCenter, gpsPoint, (int) PIXEL_SIZE, image));
+	
+		node.getChildren().addAll(pane);
+		
+	}
+	
+	public  void drawMap(){
+		int zoom = 16;
+		double PIXEL_SIZE = 256 * Math.pow(2, zoom);
+		
+		/*LatLng mapCenter = new LatLng(39.781484, -84.06358);
+		LatLng gpsPoint = new LatLng(39.780651, -84.064937);
+		LatLng proxyTopLeftPoint = new LatLng(39.785334, -84.067876);
+		LatLng proxyBottomRightPoint = new LatLng (39.779084, -84.059422); 
+		*/
+		String imageSource = getGoogleMap(mapCenter, zoom);
+		Image image = new Image(imageSource);
+		ImageView imageView = new ImageView(image);
+		
+		Pane pane = new Pane(imageView, getProxy(mapCenter, proxyTopLeftPoint, proxyBottomRightPoint, (int) PIXEL_SIZE, image), getGPSLoc(mapCenter, gpsPoint, (int) PIXEL_SIZE, image));
+	
+		node.getChildren().addAll(pane);
 	}
 
 	public GMaps() {
 	}
+	
 	
 	public static Circle getGPSLoc(LatLng mapCenter, LatLng gpsPoint, int pixelSize, Image image){
 		double xCoordinate = (image.getWidth()/2) - (getXProj(mapCenter, (int) pixelSize) - getXProj(gpsPoint, (int) pixelSize));
