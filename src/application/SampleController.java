@@ -80,7 +80,8 @@ public class SampleController {
 		}
 		GpsLog log = new GpsLog(model.getLocation(), annotation);
 		model.getLogs().add(log);
-
+		model.getMap().setAddToPane();
+		model.getMap().drawMap();
 	}
 
 	@FXML
@@ -141,7 +142,7 @@ public class SampleController {
 				if(model.getSearchLocation() != null) {
 				GpsLocation mapCenter = model.getSearchLocation();
 				model.getMap().setMapCenter(GpsLocation.convertGPSLocation(mapCenter));
-				model.getMap().drawMap();
+				//model.getMap().drawMap();
 				}
 				
 			} catch (Exception e) {
@@ -173,11 +174,11 @@ public class SampleController {
 		
 		logList.setOnMouseClicked((event) -> {
 			annotationTextField.setText(logList.getSelectionModel().getSelectedItem().getAnotation());
-		});
+			});
 		
 		saveGPSLogButton.setOnAction((event) -> {
 			logList.getSelectionModel().getSelectedItem().setAnotation(annotationTextField.getText());
-		});
+			});
 
 		// new GMaps(mapPane);
 		Platform.runLater(() -> {

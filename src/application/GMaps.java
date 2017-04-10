@@ -17,6 +17,9 @@ public class GMaps {
 	private LatLng proxyTopLeftPoint;
 	private LatLng proxyBottomRightPoint;
 	private StackPane node;
+	private Pane pane;
+	private Pane logPane = new Pane();
+	private boolean addToPane = false;
 	
 	public void setMapCenter(LatLng point){
 		this.mapCenter = point;
@@ -29,6 +32,10 @@ public class GMaps {
 	public void setProxyBorder(LatLng tLPoint, LatLng bRPoint){
 		this.proxyTopLeftPoint = tLPoint;
 		this.proxyBottomRightPoint = bRPoint;
+	}
+	
+	public void setAddToPane(){
+		this.addToPane = true;
 	}
 	
 	public void setNode(StackPane node){
@@ -77,7 +84,7 @@ public class GMaps {
 		Image image = new Image(imageSource);
 		ImageView imageView = new ImageView(image);
 		
-		Pane pane = new Pane(imageView, getProxy(mapCenter, proxyTopLeftPoint, proxyBottomRightPoint, (int) PIXEL_SIZE, image), getGPSLoc(mapCenter, gpsPoint, (int) PIXEL_SIZE, image));
+		this.pane = new Pane(imageView, getProxy(mapCenter, proxyTopLeftPoint, proxyBottomRightPoint, (int) PIXEL_SIZE, image), getGPSLoc(mapCenter, gpsPoint, (int) PIXEL_SIZE, image));
 	
 		node.getChildren().addAll(pane);
 		
@@ -96,9 +103,15 @@ public class GMaps {
 		Image image = new Image(imageSource);
 		ImageView imageView = new ImageView(image);
 		
-		Pane pane = new Pane(imageView, getProxy(mapCenter, proxyTopLeftPoint, proxyBottomRightPoint, (int) PIXEL_SIZE, image), getGPSLoc(mapCenter, gpsPoint, (int) PIXEL_SIZE, image));
-	
+		this.pane = new Pane(imageView
+				, getProxy(mapCenter, proxyTopLeftPoint, proxyBottomRightPoint, (int) PIXEL_SIZE, image)
+				, getGPSLoc(mapCenter, gpsPoint, (int) PIXEL_SIZE, image));
+		createNewLogLocation(mapCenter, gpsPoint, (int) PIXEL_SIZE, image, addToPane);
+		if(logPane != null){
+			pane.getChildren().add(logPane);
+		}
 		node.getChildren().addAll(pane);
+		
 	}
 
 	public GMaps() {
@@ -117,8 +130,24 @@ public class GMaps {
 		
 		return gpsLoc;
 	}
+	
+	public Rectangle createNewLogLocation(LatLng mapCenter, LatLng point, int pixelSize, Image image, boolean addToPane){
+		double xCoordinate = (image.getWidth()/2) - (getXProj(mapCenter, (int) pixelSize) - getXProj(point, (int) pixelSize)) - 3.5;
+		double yCoordinate = (image.getWidth()/2) - (getYProj(mapCenter, (int) pixelSize) - getYProj(point, (int) pixelSize)) - 3.5;
+		double width = 7;
+		double height = 7;
+		
+		Rectangle newLogLocation = new Rectangle(xCoordinate, yCoordinate, width, height);
+		newLogLocation.setFill(Color.GREEN);
+		
+		if(addToPane == true){
+			logPane.getChildren().add(newLogLocation);
+		this.addToPane = false;
+		}
+		return newLogLocation;
+	}
 
-	public static Rectangle getProxy(LatLng mapCenter, LatLng topLeft, LatLng bottomRight, int pixelSize, Image image){
+	public Rectangle getProxy(LatLng mapCenter, LatLng topLeft, LatLng bottomRight, int pixelSize, Image image){
 		double xCoordinate = (image.getWidth()/2) - (getXProj(mapCenter, (int) pixelSize) - getXProj(topLeft, (int) pixelSize));
 		double yCoordinate = (image.getWidth()/2) - (getYProj(mapCenter, (int) pixelSize) - getYProj(topLeft, (int) pixelSize));
 		
