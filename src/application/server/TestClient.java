@@ -46,7 +46,6 @@ public class TestClient extends Thread {
 				try {
 					TimeUnit.SECONDS.sleep(2);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

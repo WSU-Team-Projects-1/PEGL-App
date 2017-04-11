@@ -1,9 +1,9 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.List;
-import javafx.collections.ObservableList;
+
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class MainModel {
 
@@ -29,8 +29,7 @@ public class MainModel {
 	
 
 	/**
-	 * Written to from server thread and read from other threads. TODO: Look
-	 * into if this needs thread safety measures.
+	 * Written to from server thread and read from other threads.
 	 */
 	private final GpsLocationProperty location;
 	private GMaps map;

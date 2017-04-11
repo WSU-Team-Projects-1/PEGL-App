@@ -18,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -48,7 +47,7 @@ public class SampleController {
 				// Update position on GUI
 				Platform.runLater(() -> {
 					gpsLocationLabel.setText(newValue.toString());
-					model.getMap().setGPSPoint(GpsLocation.convertGPSLocation(newValue)); 
+					model.getMap().setGPSPoint(GpsLocation.convertGPSLocation(newValue));
 					model.getMap().drawMap();
 				});
 
@@ -92,7 +91,6 @@ public class SampleController {
 
 	@FXML
 	public void saveLogsToFile() {
-		// TODO Configure filename
 		String fileName = "logs.csv";
 
 		try (PrintWriter logFile = new PrintWriter(new File(fileName))) {
@@ -103,7 +101,6 @@ public class SampleController {
 			}
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -114,7 +111,7 @@ public class SampleController {
 	private void initializeStage2() {
 
 		model.locationProperty().addListener(gpsChangeListener);
-		
+
 		logList.setItems(model.getLogs());
 
 		GMaps foo = new GMaps();
@@ -150,7 +147,7 @@ public class SampleController {
 				model.getMap().setMapCenter(GpsLocation.convertGPSLocation(mapCenter));
 				//model.getMap().drawMap();
 				}
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				Platform.exit();
@@ -165,26 +162,32 @@ public class SampleController {
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setScene(new Scene(root));
 				stage.showAndWait();
-				if(model.getBounds() != null) {
-				Boundary bounds = model.getBounds();
-				model.getMap().setProxyBorder(bounds.getTopLeft(), bounds.getBottomRight());
-				model.getMap().drawMap();
+				if (model.getBounds() != null) {
+					Boundary bounds = model.getBounds();
+					model.getMap().setProxyBorder(bounds.getTopLeft(), bounds.getBottomRight());
+					model.getMap().drawMap();
 				}
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				Platform.exit();
 				System.exit(0);
 			}
 		});
-		
+
 		logList.setOnMouseClicked((event) -> {
-			annotationTextField.setText(logList.getSelectionModel().getSelectedItem().getAnotation());
-			});
-		
+			GpsLog selectedLog = logList.getSelectionModel().getSelectedItem();
+			if (selectedLog != null) {
+				annotationTextField.setText(selectedLog.getAnotation());
+			}
+		});
+
 		saveGPSLogButton.setOnAction((event) -> {
-			logList.getSelectionModel().getSelectedItem().setAnotation(annotationTextField.getText());
-			});
+			GpsLog selectedLog = logList.getSelectionModel().getSelectedItem();
+			if (selectedLog != null) {
+				selectedLog.setAnotation(annotationTextField.getText());
+			}
+		});
 
 		// new GMaps(mapPane);
 		Platform.runLater(() -> {
@@ -264,7 +267,7 @@ public class SampleController {
 
 	@FXML
 	private Button saveLogsToFileButton;
-	
+
 	@FXML
 	private ListView<GpsLog> logList;
 
