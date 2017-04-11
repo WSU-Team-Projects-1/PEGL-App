@@ -47,7 +47,7 @@ public class SampleController {
 				// Update position on GUI
 				Platform.runLater(() -> {
 					gpsLocationLabel.setText(newValue.toString());
-					model.getMap().setGPSPoint(GpsLocation.convertGPSLocation(newValue));
+					model.getMap().setGPSPoint(GpsLocation.asLatLng(newValue));
 					model.getMap().drawMap();
 				});
 
@@ -75,6 +75,11 @@ public class SampleController {
 	@FXML
 	public void initDemo(){
 		System.out.println("hello?");
+		GMaps foo = model.getMap();
+		foo.setMapCenter(testMapCenter);
+		foo.setGPSPoint(testGPSPoint);
+		foo.setProxyBorder(testTLBorder, testBRBorder);
+		model.setBounds(new Boundary(new GpsLocation(testTLBorder), new GpsLocation(testBRBorder)));
 	}
 	
 	@FXML
@@ -117,9 +122,7 @@ public class SampleController {
 		GMaps foo = new GMaps();
 		model.setMap(foo);
 		foo.setNode(mapPane);
-		foo.setMapCenter(testMapCenter);
-		foo.setGPSPoint(testGPSPoint);
-		foo.setProxyBorder(testTLBorder, testBRBorder);
+		
 
 		connectToDJIButton.setOnAction((event) -> {
 			try {
@@ -144,7 +147,7 @@ public class SampleController {
 				stage.showAndWait();
 				if(model.getSearchLocation() != null) {
 				GpsLocation mapCenter = model.getSearchLocation();
-				model.getMap().setMapCenter(GpsLocation.convertGPSLocation(mapCenter));
+				model.getMap().setMapCenter(GpsLocation.asLatLng(mapCenter));
 				//model.getMap().drawMap();
 				}
 

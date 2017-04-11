@@ -100,6 +100,8 @@ public class GMaps {
 		LatLng proxyTopLeftPoint = new LatLng(39.785334, -84.067876);
 		LatLng proxyBottomRightPoint = new LatLng (39.779084, -84.059422); 
 		*/
+		if (mapCenter == null)
+			return;
 		String imageSource = getGoogleMap(mapCenter, zoom);
 		Image image = new Image(imageSource);
 		ImageView imageView = new ImageView(image);

@@ -17,6 +17,12 @@ public class GpsLocation {
 		this.longitude = longitude;
 	}
 
+	public GpsLocation(LatLng l){
+		super();
+		latitude = l.lat;
+		longitude = l.lng;
+	}
+	
 	/**
 	 * Parse a string given as `latitude + ", " + longitude`.
 	 * 
@@ -30,7 +36,7 @@ public class GpsLocation {
 		return new GpsLocation(lat, lon);
 	}
 
-	public static LatLng convertGPSLocation(GpsLocation point){
+	public static LatLng asLatLng(GpsLocation point){
 		 LatLng latLng = new LatLng(point.latitude, point.longitude);
 		 return latLng;
 	}

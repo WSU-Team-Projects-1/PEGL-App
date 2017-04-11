@@ -25,11 +25,11 @@ public class Boundary {
 	}
 	
 	public LatLng getTopLeft(){
-		return GpsLocation.convertGPSLocation(topLeft);
+		return GpsLocation.asLatLng(topLeft);
 	}
 	
 	public LatLng getBottomRight(){
-		return GpsLocation.convertGPSLocation(bottomRight);
+		return GpsLocation.asLatLng(bottomRight);
 	}
 
 	public boolean inBounds(GpsLocation loc) {
