@@ -32,8 +32,8 @@
             <StackPane id="connectAndSearchStackPane" fx:id="connectAndSearchStackPane" layoutX="-1.0" layoutY="122.0" prefHeight="165.0" prefWidth="334.0">
                <children>
                   <Button id="loadSearchAreaButton" fx:id="loadSearchAreaButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Load Search Area" StackPane.alignment="BOTTOM_CENTER" />
-                  <Button id="setSearchBoundariesButton" fx:id="setSearchBoundariesButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Set Search Boundaries" StackPane.alignment="CENTER" />
                   <Button id="connectToDJIButton" fx:id="connectToDJIButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Connect to DJI" StackPane.alignment="TOP_CENTER" />
+                  <Button id="setSearchBoundariesButton" fx:id="setSearchBoundariesButton" alignment="TOP_CENTER" mnemonicParsing="false" text="Set Search Boundaries" StackPane.alignment="CENTER" />
                </children>
             </StackPane>
             <StackPane id="gpsLoggingStackPane" fx:id="gpsLoggingStackPane" layoutX="-1.0" layoutY="574.0" prefHeight="242.0" prefWidth="334.0">
@@ -57,6 +57,7 @@
                </children>
             </StackPane>
             <ListView id="logList" fx:id="logList" layoutX="22.0" layoutY="331.0" prefHeight="200.0" prefWidth="288.0" />
+            <Button id="demo" fx:id="demoButton" layoutX="144.0" layoutY="543.0" mnemonicParsing="false" onAction="#initDemo" text="Demo" />
 			</children>
 		</Pane>
 		<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

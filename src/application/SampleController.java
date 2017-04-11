@@ -72,6 +72,12 @@ public class SampleController {
 
 	};
 
+	
+	@FXML
+	public void initDemo(){
+		System.out.println("hello?");
+	}
+	
 	@FXML
 	public void newLog() {
 		String annotation = annotationTextField.getText();
@@ -207,6 +213,8 @@ public class SampleController {
 		assert saveLogsToFileButton != null : "fx:id=\"saveLogsToFileButton\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert logList != null : "fx:id=\"logList\" was not injected: check your FXML file 'Sample.fxml'.";
 		assert mapPane != null : "fx:id=\"mapPane\" was not injected: check your FXML file 'Sample.fxml'.";
+        assert demoButton != null : "fx:id=\"demoButton\" was not injected: check your FXML file 'Sample.fxml'.";
+
 		// end generated
 
 		initializeStage2();
@@ -262,5 +270,8 @@ public class SampleController {
 
 	@FXML
 	private StackPane mapPane;
+	
+    @FXML
+    private Button demoButton;
 
 }
