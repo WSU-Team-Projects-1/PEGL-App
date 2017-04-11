@@ -26,6 +26,7 @@ public class Main extends Application {
 			SplitPane root = (SplitPane) FXMLLoader.load(getClass().getResource("Sample.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setTitle("PEGL Application");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 
@@ -44,7 +45,6 @@ public class Main extends Application {
 		}
 
 		if (runningServer) {
-			//TODO restart with portnum change?
 			server = new GpsServer(model.getPortNum());
 			server.setDaemon(true);
 			server.start();

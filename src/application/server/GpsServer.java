@@ -11,12 +11,6 @@ import java.util.concurrent.TimeUnit;
 import application.GpsLocation;
 import application.MainModel;
 import application.WarningIssuer;
-import application.WarningMessageController;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 /**
  * 
@@ -28,7 +22,7 @@ import javafx.stage.Stage;
  */
 public class GpsServer extends Thread {
 
-	private int port = 1605; // TODO configure from settings
+	private int port = 1605;
 
 	private final MainModel model;
 
@@ -39,10 +33,6 @@ public class GpsServer extends Thread {
 		this.port = port;
 	}
 
-	// private Socket p(Object o) {
-	// System.out.println(o);
-	// return null;
-	// }
 
 	@Override
 	public void run() {
@@ -50,9 +40,7 @@ public class GpsServer extends Thread {
 			System.out.println("Server start");
 
 			try (ServerSocket serverSocket = new ServerSocket(port);
-					// Socket asdfsdaf = p("Made server socket");
 					Socket clientSocket = serverSocket.accept();
-					// Socket asdfsdafadf = p("Got client");
 					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 					BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
 
@@ -65,7 +53,6 @@ public class GpsServer extends Thread {
 
 				// While connection is alive
 				while ((inputLine = in.readLine()) != null) {
-					// System.err.println(inputLine);
 
 					model.setLocation(GpsLocation.parse(inputLine));
 
