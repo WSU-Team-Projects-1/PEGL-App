@@ -1,6 +1,6 @@
 # PEGL
 
-todo
+This is the Perimeter Enforcement and GPS Logging software for WSU's CS/CEG/EE Team Projects Fall 2016 - Spring 2017.
 
 ### build and development 
 Basic things needed. Figure other stuff out yourself.
